@@ -1,79 +1,55 @@
-#!/bin/bash
-#=================================================
-# DIY script
-# jsjson@163.com 
-#=================================================
-##替换一些新插件
-rm -rf feeds/luci/applications/luci-app-aria2/*
-cp -af feeds/xiangfeidexiaohuo/aria2-op/luci-app-aria2/* feeds/luci/applications/luci-app-aria2/
+# Modify default IP
+sed -i 's/192.168.1.1/10.10.10.1/g' package/base-files/files/bin/config_generate
 
-rm -rf feeds/packages/admin/netdata/*
-cp -af feeds/xiangfeidexiaohuo/netdata-op/netdata/* feeds/packages/admin/netdata/
+#修正连接数
+sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
-rm -rf feeds/packages/net/ariang/*
-cp -af feeds/xiangfeidexiaohuo/aria2-op/ariang/* feeds/packages/net/ariang/
+# Modify hostname
+#sed -i 's/OpenWrt/OpenWrt/g' package/base-files/files/bin/config_generate
 
-rm -rf feeds/packages/utils/docker/*
-rm -rf feeds/packages/utils/dockerd/*
-rm -rf feeds/packages/utils/containerd/*
-rm -rf feeds/packages/utils/runc/*
-cp -af feeds/xiangfeidexiaohuo/docker-op/docker/* feeds/packages/utils/docker/
-cp -af feeds/xiangfeidexiaohuo/docker-op/dockerd/* feeds/packages/utils/dockerd/
-cp -af feeds/xiangfeidexiaohuo/docker-op/containerd/* feeds/packages/utils/containerd/
-cp -af feeds/xiangfeidexiaohuo/docker-op/runc/* feeds/packages/utils/runc/
+# Delete default password
+# sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings
+
+# 64位5.4内核切换5.10
+#sed -i 's/KERNEL_PATCHVER:=5.4/KERNEL_PATCHVER:=5.10/g' target/linux/x86/Makefile
+
+# 修改想要的root密码
+#sed -i 's/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/root:$1$uCK2IxJt$d.JPPvZJvJDioqTovr.2p/:18841:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
+
+# Modify the version number版本号里显示一个自己的名字（GONGCZ $(TZ=UTC+8 date "+%Y.%m.%d") @ 这些都是后增加的）
+sed -i 's/OpenWrt /HONGCZ $(TZ=UTC-8 date +"%Y.%m.%d") @ OpenWrt /g' package/lean/default-settings/files/zzz-default-settings
+
+# 修改主机名字，把AX3600改成喜欢的的就行（不能纯数字或者使用中文）
+#sed -i '/uci commit system/i\uci set system.@system[0].hostname='AX3600'' package/lean/default-settings/files/zzz-default-settings
+
+# 修改默认wifi名称ssid为AX3600(双频一起换了)
+sed -i 's/ssid=OpenWrt/ssid=CL_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# 详细到修改双频WiFi名称
+#sed -i 's/set wireless.default_radio${devidx}.ssid=OpenWrt/set wireless.default_radio0.ssid=openwrtplus/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+#sed -i '/set wireless.default_radio0.ssid=openwrtplus/a\set wireless.default_radio1.ssid=openwrt' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# 修改默认wifi密码key为你想要的密码
+sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# 修改wifi加密方式与密码
+sed -i '/set wireless.default_radio\${devidx}.encryption=psk2/a set wireless.default_radio\$\{devidx\}.key=12345678123' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# 开启MU-MIMO
+#sed -i 's/mu_beamformer=0/mu_beamformer=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 
-##补充汉化       
-cp -f ./feeds/xiangfeidexiaohuo/files/udpxy.lua ./feeds/luci/applications/luci-app-udpxy/luasrc/model/cbi
-cp -f ./feeds/xiangfeidexiaohuo/files/mwan3.po ./feeds/luci/applications/luci-app-mwan3/po/zh-cn
-              
- ##配置ip等
-sed -i 's|^TARGET_|# TARGET_|g; s|# TARGET_DEVICES += phicomm-k3|TARGET_DEVICES += phicomm-k3| ; s|# TARGET_DEVICES += phicomm_k3|TARGET_DEVICES += phicomm_k3|' target/linux/bcm53xx/image/Makefile
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
-
-##替换K3无线驱动为69027
-rm -rf ./package/lean/k3-brcmfmac4366c-firmware/files/lib/firmware/brcm/brcmfmac4366c-pcie.bin
-svn export https://github.com/xiangfeidexiaohuo/Phicomm-K3_Wireless-Firmware/trunk/brcmfmac4366c-pcie.bin_69027 ./package/lean/k3-brcmfmac4366c-firmware/files/lib/firmware/brcm/brcmfmac4366c-pcie.bin
+# themes添加（svn co 命令意思：指定版本如https://github）
+#git clone https://github.com/Leo-Jo-My/luci-theme-Butterfly package/luci-theme-Butterfly
+#git clone https://github.com/Leo-Jo-My/luci-theme-Butterfly-dark package/luci-theme-Butterfly-dark
+#svn co https://github.com/apollo-ng/luci-theme-darkmatter/trunk/luci/themes/luci-theme-darkmatter package/luci-theme-darkmatter
+#svn co https://github.com/solidus1983/luci-theme-opentomato/trunk/luci/themes/luci-theme-opentomato package/luci-theme-opentomato
+#svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-theme-edge package/luci-theme-edge
+#svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-theme-argon_new package/luci-theme-argon_new
+#svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
+#svn co https://github.com/rosywrt/luci-theme-purple/trunk/luci-theme-purple package/luci-theme-purple
+#git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
+#git clone https://github.com/Leo-Jo-My/luci-theme-opentomcat.git package/luci-theme-opentomcat
+#git clone https://github.com/openwrt-develop/luci-theme-atmaterial.git package/luci-theme-atmaterial
 
 
 ##取消bootstrap为默认主题
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/luci-theme-bootstrap/luci-theme-argon-18.06/g' feeds/luci/collections/luci/Makefile
 sed -i 's/luci-theme-bootstrap/luci-theme-argon-18.06/g' feeds/luci/collections/luci-nginx/Makefile
-
-
-##加入作者信息
-sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='By YaoDao $(date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings
-
-
-
-##FQ全部调到VPN菜单
-sed -i 's/services/vpn/g' package/feeds/helloworld/luci-app-ssr-plus/luasrc/controller/*.lua
-sed -i 's/services/vpn/g' package/feeds/helloworld/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/*.lua
-sed -i 's/services/vpn/g' package/feeds/helloworld/luci-app-ssr-plus/luasrc/view/shadowsocksr/*.htm
-
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/controller/*.lua
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/model/cbi/passwall/api/*.lua
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/model/cbi/passwall/client/*.lua
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/model/cbi/passwall/server/*.lua
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/view/passwall/app_update/*.htm
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/view/passwall/global/*.htm
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/view/passwall/haproxy/*.htm
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/view/passwall/log/*.htm
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/view/passwall/node_list/*.htm
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/view/passwall/rule/*.htm
-sed -i 's/services/vpn/g' package/feeds/passwall/luci-app-passwall/luasrc/view/passwall/server/*.htm
-
-sed -i 's/services/vpn/g' package/feeds/xiangfeidexiaohuo/luci-app-vssr/luasrc/controller/*.lua
-sed -i 's/services/vpn/g' package/feeds/xiangfeidexiaohuo/luci-app-vssr/luasrc/model/cbi/vssr/*.lua
-sed -i 's/services/vpn/g' package/feeds/xiangfeidexiaohuo/luci-app-vssr/luasrc/view/vssr/*.htm
-
-sed -i 's/services/vpn/g' package/lean/luci-app-openclash/luasrc/controller/*.lua
-sed -i 's/services/vpn/g' package/lean/luci-app-openclash/luasrc/*.lua
-sed -i 's/services/vpn/g' package/lean/luci-app-openclash/luasrc/model/cbi/openclash/*.lua
-sed -i 's/services/vpn/g' package/lean/luci-app-openclash/luasrc/view/openclash/*.htm
-
-
-sed -i '/option Interface/d'  package/network/services/dropbear/files/dropbear.config
-
-
