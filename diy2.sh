@@ -34,6 +34,8 @@ sed -i '/set wireless.default_radio\${devidx}.encryption=psk2/a set wireless.def
 # 开启MU-MIMO
 #sed -i 's/mu_beamformer=0/mu_beamformer=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
+#删除无用内容
+rm -rf ./package/feeds/packages/v2raya
 
 # themes添加（svn co 命令意思：指定版本如https://github）
 #git clone https://github.com/Leo-Jo-My/luci-theme-Butterfly package/luci-theme-Butterfly
