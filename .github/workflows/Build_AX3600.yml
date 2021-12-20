@@ -1,4 +1,4 @@
-name: Build_ax3600
+name: Build_AX3600
 
 on: 
   repository_dispatch:
@@ -6,14 +6,14 @@ on:
 
 # 定时触发编译
   schedule:
-    - cron: 30 3 * * *
+    - cron: 0 4 * * *
 
 # 点赞☆Star触发编译
 #  watch:
 #    types: [started]
 
 jobs:
-  Build_ax3600:
+  Build_AX3600:
     runs-on: ubuntu-20.04
     steps:
     - name: Clone Repository
@@ -45,20 +45,20 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        cp -f ../diy/lean1.sh ./
-        chmod +x ./lean1.sh && ./lean1.sh
+        cp -f ../diy1.sh ./
+        chmod +x ./diy1.sh && ./diy1.sh
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        cp -f ../diy/lean2.sh ./        
-        chmod +x ./lean2.sh && ./lean2.sh
+        cp -f ../diy2.sh ./        
+        chmod +x ./diy2.sh && ./diy2.sh
        
             
-    - name: Configuration Customization - Build_ax3600
+    - name: Configuration Customization - Build_AX3600
       env:
-        CONFIG_FILE: './configs/ax3600.config'
+        CONFIG_FILE: './AX3600.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
