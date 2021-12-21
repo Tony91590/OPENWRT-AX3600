@@ -85,7 +85,7 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: AX3600-OpenWrt
-        path: AX3600_Out/AX3600* 
+        path: AX3600_Out/AX3600*
         
     - name: Generate Tag & Release Name
       id: generate_name
@@ -94,11 +94,22 @@ jobs:
         release_tag="$time"
         release_name="小米AX3600-OpenWrt-5.10内核-$(date +%Y%m%d)"
         echo "##[set-output name=release_name;]$release_name"
-        echo "##[set-output name=release_tag;]$release_tag"        
-    - name: Create Release & Upload
+        echo "##[set-output name=release_tag;]$release_tag" 
+      
+    - name: Create release
+      id: release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: AX3600_Out/AX3600*
-        name: ${{ steps.generate_name.outputs.release_name }}
-        tag: ${{ steps.generate_name.outputs.release_tag }}
-        token: ${{ secrets.GITHUB_TOKEN }} 
+        name: 🚀Autobuild / ${{ env.PRODUCT_NAME }} / ${{ env.DATE }}
+        allowUpdates: true
+        tag: ${{ env.FILE_NAME }}
+        commit: master
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body: |
+          🚀 Autobuild | 自动编译
+          本固件为自动编译
+          默认IP： 10.10.10.1 默认密码： password
+          SSID：CL_5G 密码：12345678123
+          当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
+          ${{ env.useVersionInfo }}
+        artifacts: ${{ env.FIRMWARE }}/*
