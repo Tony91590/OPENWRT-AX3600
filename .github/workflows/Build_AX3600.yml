@@ -1,19 +1,19 @@
-name: Build_AX3600
+name: Build_ax3600
 
 on: 
   repository_dispatch:
   workflow_dispatch:
 
 # 定时触发编译
-  schedule:
-    - cron: 0 4 * * *
+#  schedule:
+#    - cron: 0 4 * * *
 
 # 点赞☆Star触发编译
 #  watch:
 #    types: [started]
 
 jobs:
-  Build_AX3600:
+  Build_ax3600:
     runs-on: ubuntu-20.04
     steps:
     - name: Clone Repository
@@ -40,25 +40,24 @@ jobs:
         
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/xiangfeidexiaohuo/lede
-        REPO_BRANCH: AX6
+        REPO_URL: https://github.com/coolsnowwolf/lede
+        REPO_BRANCH: master
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        cp -f ../diy1.sh ./
-        chmod +x ./diy1.sh && ./diy1.sh
+        cp -f ../diy-part1.sh ./
+        chmod +x ./diy-part1.sh && ./diy-part1.sh
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        cp -f ../diy2.sh ./        
-        chmod +x ./diy2.sh && ./diy2.sh
-       
-            
-    - name: Configuration Customization - Build_AX3600
+        cp -f ../diy-part2.sh ./        
+        chmod +x ./diy-part2.sh && ./diy-part2.sh
+              
+    - name: Configuration Customization - Build_ax3600
       env:
-        CONFIG_FILE: './AX3600.config'
+        CONFIG_FILE: './.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -102,4 +101,4 @@ jobs:
         artifacts: AX3600_Out/AX3600*
         name: ${{ steps.generate_name.outputs.release_name }}
         tag: ${{ steps.generate_name.outputs.release_tag }}
-        token: ${{ secrets.GITHUB_TOKEN }}  
+        token: ${{ secrets.GITHUB_TOKEN }} 
