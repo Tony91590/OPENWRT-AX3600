@@ -1,4 +1,4 @@
-name: Build_ax3600
+name: Build_AX3600
 
 on: 
   repository_dispatch:
@@ -55,7 +55,7 @@ jobs:
         cp -f ../diy-part2.sh ./        
         chmod +x ./diy-part2.sh && ./diy-part2.sh
               
-    - name: Configuration Customization - Build_ax3600
+    - name: Configuration Customization - Build_AX3600
       env:
         CONFIG_FILE: './.config'
       run: |
