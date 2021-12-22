@@ -63,7 +63,7 @@ jobs:
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        cp -f ../diy/diy-part2.sh ./        
+        cp -f ../diy-part2.sh ./        
         chmod +x ./diy-part2.sh && ./diy-part2.sh
  
     - name: Configuration Customization - Build_ax3600
