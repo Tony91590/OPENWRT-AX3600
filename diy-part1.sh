@@ -11,8 +11,6 @@
 #
 
 # 移除原版软件包    
-rm -rf ./package/lean/k3screenctrl
-rm -rf ./package/lean/luci-app-syncdial
 rm -rf ./package/lean/luci-theme-argon
 rm -rf ./package/lean/luci-app-jd-dailybonus
 rm -rf ./package/lean/luci-app-pushbot
