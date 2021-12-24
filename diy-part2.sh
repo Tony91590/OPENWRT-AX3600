@@ -1,7 +1,7 @@
 # 增加私人设置
 svn co https://github.com/hongcz1104/Openwrt_Build/trunk/config package/base-files/files/etc/config
 
-#删除并替换某些文件
+# 删除并替换某些文件
 rm -rf ./package/feeds/packages/v2raya
 rm -rf package/qca/nss
 svn co https://github.com/Boos4721/openwrt/trunk/package/qca/nss package/qca/nss
@@ -33,7 +33,7 @@ sed -i 's/radio${devidx}.disabled/radio1.disabled/g' package/kernel/mac80211/fil
 sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 sed -i '/set wireless.default_radio\${devidx}.encryption=psk2/a\set wireless.default_radio\$\{devidx\}.key=12345678123' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
-##取消bootstrap为默认主题
+# 取消bootstrap为默认主题，改为argon-18.06
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/luci-theme-bootstrap/luci-theme-argon-18.06/g' feeds/luci/collections/luci/Makefile
 sed -i 's/luci-theme-bootstrap/luci-theme-argon-18.06/g' feeds/luci/collections/luci-nginx/Makefile
