@@ -16,15 +16,6 @@ sed -i 's/192.168.1.1/10.10.10.1/g' package/base-files/files/bin/config_generate
 #修正连接数（by ベ七秒鱼ベ）
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
-# Modify hostname
-#sed -i 's/OpenWrt/OpenWrt/g' package/base-files/files/bin/config_generate
-
-# Delete default password
-# sed -i '/CYXluq4wUazHjmCDBCqXF/d' package/lean/default-settings/files/zzz-default-settings
-
-# 64位5.4内核切换5.10
-#sed -i 's/KERNEL_PATCHVER:=5.4/KERNEL_PATCHVER:=5.10/g' target/linux/x86/Makefile
-
 # 修改想要的root密码
 #sed -i 's/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/root:$1$uCK2IxJt$d.JPPvZJvJDioqTovr.2p/:18841:0:99999:7:::/g' package/lean/default-settings/files/zzz-default-settings
 
@@ -32,7 +23,7 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 sed -i 's/OpenWrt /HONGCZ $(TZ=UTC-8 date +"%Y.%m.%d") @ OpenWrt /g' package/lean/default-settings/files/zzz-default-settings
 
 # 修改主机名字，把AX3600改成喜欢的的就行（不能纯数字或者使用中文）
-#sed -i '/uci commit system/i\uci set system.@system[0].hostname='AX3600'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/uci commit system/i\uci set system.@system[0].hostname='AX3600'' package/lean/default-settings/files/zzz-default-settings
 
 # 修改默认wifi名称ssid为AX3600(双频一起换了)
 sed -i 's/ssid=OpenWrt/ssid=CL_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
