@@ -1,5 +1,5 @@
 # 增加私人设置
-svn co https://github.com/hongcz1104/Openwrt_Build/trunk/config package/base-files/files/etc/config
+#svn co https://github.com/hongcz1104/Openwrt_Build/trunk/config package/base-files/files/etc/config
 
 # 删除并替换某些文件
 rm -rf ./package/feeds/packages/v2raya
