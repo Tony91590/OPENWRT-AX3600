@@ -18,10 +18,10 @@ sed -i 's/V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0/bt44IxMu$i4NgW46.Dpkm5VCZeffEL0:1898
 # 版本号里显示一个自己的名字（GONGCZ $(TZ=UTC+8 date "+%Y.%m.%d") @ 这些都是后增加的）
 sed -i 's/OpenWrt /HONGCZ $(TZ=UTC-8 date +"%Y.%m.%d") @ OpenWrt /g' package/lean/default-settings/files/zzz-default-settings
 
-# 修改主机名字，把AX3600改成喜欢的的就行（不能纯数字或者使用中文）
+# 修改主机名字为AX3600
 sed -i '/uci commit system/i\uci set system.@system[0].hostname='AX3600'' package/lean/default-settings/files/zzz-default-settings
 
-# 修改默认5G wifi名称ssid为AX3600(双频一起换了)
+# 修改默认5G wifi名称
 sed -i 's/radio${devidx}.ssid=OpenWrt/radio1.ssid=CL_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 详细到修改双频WiFi名称
