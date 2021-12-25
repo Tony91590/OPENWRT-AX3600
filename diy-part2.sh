@@ -28,18 +28,21 @@ sed -i 's/OpenWrt /HONGCZ $(TZ=UTC-8 date +"%Y.%m.%d") @ OpenWrt /g' package/lea
 # 修改主机名字为AX3600
 sed -i '/uci commit system/i\uci set system.@system[0].hostname='AX3600'' package/lean/default-settings/files/zzz-default-settings
 
+# 替换私人WIFI设置
+curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/main/mac80211.sh > package/kernel/mac80211/files/lib/wifi/mac80211.sh
+
 # 修改默认5G wifi名称
-sed -i 's/radio${devidx}.ssid=OpenWrt/radio1.ssid=CL_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+#sed -i 's/radio${devidx}.ssid=OpenWrt/radio1.ssid=CL_5G/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 详细到修改双频WiFi名称
 #sed -i 's/set wireless.default_radio${devidx}.ssid=OpenWrt/set wireless.default_radio0.ssid=CL/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 #sed -i '/set wireless.default_radio0.ssid=CL/a\set wireless.default_radio1.ssid=CL_5G' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 修改wifi加密方式与密码
-sed -i 's/radio${devidx}.channel=${channel}/radio1.channel=44/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-sed -i 's/radio${devidx}.disabled/radio1.disabled/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
-sed -i '/set wireless.default_radio\${devidx}.encryption=psk2/a\set wireless.default_radio\$\{devidx\}.key=12345678123' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+#sed -i 's/radio${devidx}.channel=${channel}/radio1.channel=44/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+#sed -i 's/radio${devidx}.disabled/radio1.disabled/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+#sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+#sed -i '/set wireless.default_radio\${devidx}.encryption=psk2/a\set wireless.default_radio\$\{devidx\}.key=12345678123' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 取消bootstrap为默认主题，改为argon-18.06
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
