@@ -10,6 +10,4 @@ rm -rf ./package/lean/luci-app-kodexplorer
   
 # 添加自己的插件库
 echo -e "\nsrc-git hongcz https://github.com/hongcz1104/openwrt-packages" >> feeds.conf.default
-#echo -e "src-git passwall https://github.com/xiaorouji/openwrt-passwall" >> feeds.conf.default
-#echo -e "src-git helloworld https://github.com/fw876/helloworld" >> feeds.conf.default
 #echo -e "src-git OpenAppFilter https://github.com/destan19/OpenAppFilter" >> feeds.conf.default
