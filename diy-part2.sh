@@ -36,6 +36,7 @@ sed -i 's/radio${devidx}.ssid=OpenWrt/radio1.ssid=CL_5G/g' package/kernel/mac802
 #sed -i '/set wireless.default_radio0.ssid=CL/a\set wireless.default_radio1.ssid=CL_5G' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 修改wifi加密方式与密码
+sed -i 's/radio${devidx}.channel=${channel}/radio1.channel=44/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 sed -i 's/radio${devidx}.disabled/radio1.disabled/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 sed -i '/set wireless.default_radio\${devidx}.encryption=psk2/a\set wireless.default_radio\$\{devidx\}.key=12345678123' package/kernel/mac80211/files/lib/wifi/mac80211.sh
