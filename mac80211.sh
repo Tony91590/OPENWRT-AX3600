@@ -165,24 +165,24 @@ detect_mac80211() {
 			set wireless.radio${devidx}.type=mac80211
 			${dev_id}
 			set wireless.radio0.channel=44
-      set wireless.radio1.channel=44
-      set wireless.radio2.channel=9
+                        set wireless.radio1.channel=44
+                        set wireless.radio2.channel=9
 			set wireless.radio${devidx}.band=${mode_band}
 			set wireless.radio${devidx}.htmode=$htmode
 			set wireless.radio0.disabled=1
-      set wireless.radio1.disabled=0
-      set wireless.radio2.disabled=1
+                        set wireless.radio1.disabled=0
+                        set wireless.radio2.disabled=1
 			set wireless.radio${devidx}.country=US
 			
 			set wireless.default_radio${devidx}=wifi-iface
 			set wireless.default_radio${devidx}.device=radio${devidx}
 			set wireless.default_radio${devidx}.network=lan
 			set wireless.default_radio${devidx}.mode=ap
-      set wireless.default_radio0.ssid=CL_AloT
-      set wireless.default_radio1.ssid=CL_5G
-      set wireless.default_radio2.ssid=CL
-      set wireless.default_radio${devidx}.encryption=psk2
-      set wireless.default_radio${devidx}.key=12345678123
+                        set wireless.default_radio0.ssid=CL_AloT
+                        set wireless.default_radio1.ssid=CL_5G
+                        set wireless.default_radio2.ssid=CL
+                        set wireless.default_radio${devidx}.encryption=psk2
+                        set wireless.default_radio${devidx}.key=12345678123
 
 EOF
 		uci -q commit wireless
