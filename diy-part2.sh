@@ -1,10 +1,17 @@
-# 增加私人设置
-#svn co https://github.com/hongcz1104/Openwrt_Build/trunk/config package/base-files/files/etc/config
-
-# 删除并替换某些文件
-rm -rf ./package/feeds/packages/v2raya
+# 删除并替换nss驱动
 #rm -rf package/qca/nss
 #svn co https://github.com/Boos4721/openwrt/trunk/package/qca/nss package/qca/nss
+
+# 删除无用文件
+rm -rf package/feeds/packages/v2raya
+
+# 添加pppoe拨号
+sed -i '/exit/i\uci set network.wan.proto='pppoe'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan.username='07521205834879'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan.password='123456780'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan.ifname='eth0'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan6.ifname='eth0'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci commit network' package/lean/default-settings/files/zzz-default-settings
 
 # 修改管理IP
 sed -i 's/192.168.1.1/10.10.10.1/g' package/base-files/files/bin/config_generate
