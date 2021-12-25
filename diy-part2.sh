@@ -1,14 +1,6 @@
 # 删除无用文件
 rm -rf package/feeds/packages/v2raya
 
-# 添加pppoe拨号
-sed -i '/exit/i\uci set network.wan.proto='pppoe'' package/lean/default-settings/files/zzz-default-settings
-sed -i '/exit/i\uci set network.wan.username='07521205834879'' package/lean/default-settings/files/zzz-default-settings
-sed -i '/exit/i\uci set network.wan.password='123456780'' package/lean/default-settings/files/zzz-default-settings
-sed -i '/exit/i\uci set network.wan.ifname='eth0'' package/lean/default-settings/files/zzz-default-settings
-sed -i '/exit/i\uci set network.wan6.ifname='eth0'' package/lean/default-settings/files/zzz-default-settings
-sed -i '/exit/i\uci commit network' package/lean/default-settings/files/zzz-default-settings
-
 # 修改管理IP
 sed -i 's/192.168.1.1/10.10.10.1/g' package/base-files/files/bin/config_generate
 
@@ -23,6 +15,14 @@ sed -i 's/OpenWrt /HONGCZ $(TZ=UTC-8 date +"%Y.%m.%d") @ OpenWrt /g' package/lea
 
 # 修改主机名字为AX3600
 sed -i '/uci commit system/i\uci set system.@system[0].hostname='AX3600'' package/lean/default-settings/files/zzz-default-settings
+
+# 添加pppoe拨号
+sed -i '/exit/i\uci set network.wan.proto='pppoe'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan.username='07521205834879'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan.password='123456780'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan.ifname='eth0'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci set network.wan6.ifname='eth0'' package/lean/default-settings/files/zzz-default-settings
+sed -i '/exit/i\uci commit network' package/lean/default-settings/files/zzz-default-settings
 
 # 替换私人WIFI设置
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/main/mac80211.sh > package/kernel/mac80211/files/lib/wifi/mac80211.sh
