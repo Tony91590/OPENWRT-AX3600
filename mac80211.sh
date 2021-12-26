@@ -167,8 +167,12 @@ detect_mac80211() {
 			set wireless.radio0.channel=5
                         set wireless.radio1.channel=36
                         set wireless.radio2.channel=10
-			set wireless.radio${devidx}.band=${mode_band}
-			set wireless.radio${devidx}.htmode=$htmode
+			set wireless.radio0.band=2g
+			set wireless.radio1.band=5g
+			set wireless.radio2.band=2g
+			set wireless.radio0.htmode=HE40
+			set wireless.radio1.htmode=HE80
+			set wireless.radio2.htmode=HE40
 			set wireless.radio0.disabled=1
                         set wireless.radio1.disabled=0
                         set wireless.radio2.disabled=1
