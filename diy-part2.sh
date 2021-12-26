@@ -24,6 +24,9 @@ sed -i '/exit/i\uci commit network' package/lean/default-settings/files/zzz-defa
 # 替换私人WIFI设置
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/main/mac80211.sh > package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
+# ddnsto
+curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/main/ddnsto.config > feeds/xiangfeidexiaohuo/nas/ddnsto/files/ddnsto.config
+
 # 取消bootstrap为默认主题，改为argon-18.06
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/luci-theme-bootstrap/luci-theme-argon-18.06/g' feeds/luci/collections/luci/Makefile
