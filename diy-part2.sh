@@ -21,10 +21,8 @@ sed -i '/exit/i\uci set network.wan.ifname='eth0'' package/lean/default-settings
 sed -i '/exit/i\uci set network.wan6.ifname='eth0'' package/lean/default-settings/files/zzz-default-settings
 sed -i '/exit/i\uci commit network' package/lean/default-settings/files/zzz-default-settings
 
-# 替换私人WIFI设置
+# 替换私人设置
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/main/mac80211.sh > package/kernel/mac80211/files/lib/wifi/mac80211.sh
-
-# ddnsto
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/main/ddnsto.config > feeds/xiangfeidexiaohuo/nas/ddnsto/files/ddnsto.config
 
 # 取消bootstrap为默认主题，改为argon-18.06
