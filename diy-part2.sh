@@ -1,3 +1,6 @@
+# 删除部分文件
+rm -rf feeds/xiangfeidexiaohuo/patch/autocore
+
 # 修改管理IP
 sed -i 's/192.168.1.1/10.10.10.1/g' package/base-files/files/bin/config_generate
 
