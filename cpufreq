@@ -1,8 +1,0 @@
-
-config settings 'cpufreq'
-	option minfreq0 '1017600'
-	option governor0 'ondemand'
-	option maxfreq0 '1843200'
-	option sdfactor0 '10'
-	option upthreshold0 '50'
-
