@@ -30,6 +30,7 @@ curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/dd
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/openclash > package/lean/luci-app-openclash/root/etc/config/openclash
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/unblockmusic > package/lean/luci-app-unblockmusic/root/etc/config/unblockmusic
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/aliyundrive-webdav.config > feeds/xiangfeidexiaohuo/aliyun/aliyundrive-webdav/files/aliyundrive-webdav.config
+curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/cpufreq > feeds/xiangfeidexiaohuo/luci-app-cpufreq/root/etc/config/cpufreq
 
 # 取消bootstrap为默认主题，改为argon-18.06
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
