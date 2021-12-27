@@ -11,7 +11,7 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 sed -i 's/V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0/bt44IxMu$i4NgW46.Dpkm5VCZeffEL0:18984/g' package/lean/default-settings/files/zzz-default-settings
 
 # 版本号里添加信息
-sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='By hongcz $(TZ=UTC+8 date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings
+sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='By hongcz $(TZ=UTC-8 date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings
 
 # 修改主机名字为AX3600
 sed -i '/uci commit system/i\uci set system.@system[0].hostname='AX3600'' package/lean/default-settings/files/zzz-default-settings
