@@ -28,10 +28,9 @@ sed -i '/exit/i\uci commit network' package/lean/default-settings/files/zzz-defa
 # 替换私人设置
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/mac80211.sh > package/kernel/mac80211/files/lib/wifi/mac80211.sh
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/ddnsto.config > feeds/xiangfeidexiaohuo/nas/ddnsto/files/ddnsto.config
-#curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/openclash > package/lean/luci-app-openclash/root/etc/config/openclash
+curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/openclash > package/lean/luci-app-openclash/root/etc/config/openclash
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/unblockmusic > package/lean/luci-app-unblockmusic/root/etc/config/unblockmusic
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/aliyundrive-webdav.config > feeds/xiangfeidexiaohuo/aliyun/aliyundrive-webdav/files/aliyundrive-webdav.config
-curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/cpufreq > feeds/xiangfeidexiaohuo/luci-app-cpufreq/root/etc/config/cpufreq
 curl -fsSL https://raw.githubusercontent.com/hongcz1104/OPENWRT-AX3600/config/autotimeset > feeds/xiangfeidexiaohuo/luci-app-autotimeset/root/etc/config/autotimeset
 
 # 取消bootstrap为默认主题，改为argon-18.06
