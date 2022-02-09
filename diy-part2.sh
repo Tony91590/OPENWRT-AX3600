@@ -3,13 +3,13 @@ rm -rf feeds/xiangfeidexiaohuo/patch/autocore
 rm -rf package/feeds/xiangfeidexiaohuo/luci-app-vssr
 
 # 修改管理IP
-sed -i 's/192.168.1.1/10.10.10.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.1/g' package/base-files/files/bin/config_generate
 
 # 修正连接数
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
 # 修改root密码
-sed -i 's/V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0/bt44IxMu$i4NgW46.Dpkm5VCZeffEL0:18984/g' package/lean/default-settings/files/zzz-default-settings
+#sed -i 's/V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0/bt44IxMu$i4NgW46.Dpkm5VCZeffEL0:18984/g' package/lean/default-settings/files/zzz-default-settings
 
 # 版本号里添加信息
 sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='By HONGCZ $(TZ=UTC-8 date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings
