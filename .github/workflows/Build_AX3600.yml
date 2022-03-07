@@ -80,16 +80,16 @@ jobs:
       run: |
         rm -rf ./AX3600_Out
         mkdir -p ./AX3600_Out/
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-sysupgrade.bin 
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-factory.ubi 
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-initramfs-fit-uImage.itb 
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600.manifest 
+        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-sysupgrade.bin ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-sysupgrade.bin
+        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-factory.ubi ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-factory.ubi
+        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-initramfs-fit-uImage.itb ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600-initramfs-fit-uImage.itb
+        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600.manifest ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600.manifest
         
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
       with:
         name: AX3600-OpenWrt
-        path: AX3600_Out/AX3600* 
+        path: AX3600_Out/openwrt* 
         
     - name: Generate Tag & Release Name
       id: generate_name
