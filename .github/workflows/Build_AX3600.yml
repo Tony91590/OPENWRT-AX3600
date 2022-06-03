@@ -40,8 +40,8 @@ jobs:
         
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/Tony91590/openwrtAx
-        REPO_BRANCH: master-5.15-rc6-1
+        REPO_URL: https://github.com/Tony91590/lede
+        REPO_BRANCH: yoyo
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
@@ -103,6 +103,24 @@ jobs:
         name: AX3600-OpenWrt
         path: AX3600_Out/* 
         
+    - name: Deliver buildinfo
+      uses: actions/upload-artifact@v2
+      with:
+        name: OpenWrt_buildinfo
+        path: ./artifact/buildinfo/
+
+    - name: Deliver package
+      uses: actions/upload-artifact@v2
+      with:
+        name: OpenWrt_package
+        path: ./artifact/package/
+
+    - name: Deliver firmware
+      uses: actions/upload-artifact@v2
+      with:
+        name: OpenWrt_firmware
+        path: ./bin/targets/
+          
     - name: Generate Tag & Release Name
       id: generate_name
       run: |
