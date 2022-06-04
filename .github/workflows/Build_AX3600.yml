@@ -42,19 +42,13 @@ jobs:
       env: 
         REPO_URL: https://github.com/Tony91590/yaml
         REPO_BRANCH: yoyo
+
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         cp -f ../diy-part1.sh ./
         chmod +x ./diy-part1.sh && ./diy-part1.sh
         
-    - name: Update feeds
-      run: |
-          ./scripts/feeds update -a
-          ./scripts/feeds install -a
-    - name: Generate configuration file
-      run: make defconfig
-
     - name: Make download
       run: |
           make download -j8
