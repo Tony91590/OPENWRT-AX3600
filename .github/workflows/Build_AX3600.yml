@@ -50,7 +50,7 @@ jobs:
         chmod +x ./diy-part1.sh && ./diy-part1.sh
       
      - name: Update & Install feeds
-           working-directory: ./openwrt
+       working-directory: ./openwrt
        run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
