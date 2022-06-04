@@ -49,15 +49,14 @@ jobs:
         cp -f ../diy-part1.sh ./
         chmod +x ./diy-part1.sh && ./diy-part1.sh
       
-     - name: Update & Install feeds
-       working-directory: ./openwrt
-       run: |
+        - name: Update & Install feeds
+          working-directory: ./openwrt
+           run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         cp -f ../diy-part2.sh ./        
         chmod +x ./diy-part2.sh && ./diy-part2.sh
  
-  
     - name: Make download
       run: |
           make download -j8
