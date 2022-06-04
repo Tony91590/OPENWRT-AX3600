@@ -54,9 +54,11 @@ jobs:
         ./scripts/feeds install -a
  
     - name: Make download
+      working-directory: ./openwrt
       run: |
-          make download -j8
-          find dl -size -1024c -exec rm -f {} \;
+        make download -j$(nproc)
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
 
     - name: Compile firmware
       run: |
