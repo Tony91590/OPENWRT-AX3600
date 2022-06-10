@@ -40,72 +40,61 @@ jobs:
         
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/Tony91590/yaml
-        REPO_BRANCH: yoyo
-
+        REPO_URL: https://github.com/Leo357449107/qsdk_cmiot-ax6
+        REPO_BRANCH: qsdk_12.0.5.R2_k5.4
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-      
+        
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
  
-    - name: Make download
+    - name: Configuration Customization - Build_ax3600
+      env:
+        CONFIG_FILE: './.config'
+      run: |
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        cd openwrt && make defconfig
+        
+    - name: Download package
       working-directory: ./openwrt
       run: |
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
-    - name: Compile firmware
+        
+    - name: Build firmware
+      working-directory: ./openwrt
       run: |
-          make -j$(nproc) || make -j1 V=s
-          echo "CONFIG_TARGET_ipq807x_generic_DEVICE_xiaomi_ax3600=y"
-          echo "Space usage:"
-          echo "======================="
-          df -h
-          echo "======================="
-          du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
-          du -h --max-depth=1 ./build_dir
-          du -h --max-depth=1 ./bin
-          
-    - name: Prepare artifact
+        make -j$(nproc) V=s
+
+    - name: Assemble Artifact
+      id: assemble_artifact
       run: |
-          mkdir -p ./artifact/firmware
-          mkdir -p ./artifact/package
-          mkdir -p ./artifact/buildinfo
-          rm -rf $(find ./bin/targets/ -type d -name "packages")
-          cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
-          cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
-          cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
-          
-    - name: Deliver buildinfo
-      uses: actions/upload-artifact@v2
+        rm -rf ./AX3600_Out
+        mkdir -p ./AX3600_Out/
+        
+    - name: Upload Firmwares
+      uses: actions/upload-artifact@main
       with:
-          name: OpenWrt_buildinfo
-          path: ./artifact/buildinfo/
-
-    - name: Deliver package
-      uses: actions/upload-artifact@v2
+        name: AX3600-OpenWrt
+        path: AX3600_Out/AX3600* 
+        
+    - name: Generate Tag & Release Name
+      id: generate_name
+      run: |
+        time=$(date +%Y%m%d%H%M)
+        release_tag="$time"
+        release_name="小米AX3600-OpenWrt-5.10内核-$(date +%Y%m%d)"
+        echo "##[set-output name=release_name;]$release_name"
+        echo "##[set-output name=release_tag;]$release_tag"        
+    - name: Create Release & Upload
+      uses: ncipollo/release-action@v1
       with:
-          name: OpenWrt_package
-          path: ./artifact/package/
-
-    - name: Deliver firmware
-      uses: actions/upload-artifact@v2
-      with:
-          name: OpenWrt_firmware
-          path: ./bin/targets/
-  
-    - name: Upload release asset
-      if: github.event == 'release'
-      uses: svenstaro/upload-release-action@v2
-      with:
-          repo_token: ${{ secrets.YOURTOKEN }}
-          file: ./artifact/firmware/*
-          tag: ${{ github.ref }}
-          file_glob: true
-
+        artifacts: AX3600_Out/AX3600*
+        name: ${{ steps.generate_name.outputs.release_name }}
+        tag: ${{ steps.generate_name.outputs.release_tag }}
+        token: ${{ secrets.GITHUB_TOKEN }}           
