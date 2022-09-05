@@ -66,6 +66,13 @@ jobs:
       run: |
         rm -rf ./AX3600_Out
         mkdir -p ./AX3600_Out/
+        mkdir -p ./AX3600_Out/firmware
+        mkdir -p ./AX3600_Out/package
+        mkdir -p ./AX3600_Out/buildinfo
+        rm -rf $(find ./bin/targets/ -type d -name "packages")
+        cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
+        cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+        cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/ 
        
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
@@ -78,7 +85,7 @@ jobs:
       run: |
         time=$(date +%Y%m%d%H%M)
         release_tag="$time"
-        release_name="Xiaomi-AX3600-OpenWrt-5.10-$(date +%Y%m%d)"
+        release_name="Xiaomi-AX3600-OpenWrt-$(date +%Y%m%d)"
         echo "##[set-output name=release_name;]$release_name"
         echo "##[set-output name=release_tag;]$release_tag"        
     - name: Create Release & Upload
