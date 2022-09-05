@@ -39,7 +39,7 @@ jobs:
       run: |
           make package/symlinks
  
-    - name: Download package
+    - name: Download deconf
       working-directory: ./openwrt
       run: |
           make defconfig 
