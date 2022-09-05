@@ -53,29 +53,6 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
         make -j V=s
         
-        
-    - name: Update & Install feeds
-      working-directory: ./openwrt
-      run: |
-          make package/symlinks
- 
-    - name: Download deconf
-      working-directory: ./openwrt
-      run: |
-          make defconfig 
-        
-    - name: Download package
-      working-directory: ./openwrt
-      run: |
-        make download -j$(nproc)
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
-        
-    - name: Build firmware
-      working-directory: ./openwrt
-      run: |
-        make -j$(nproc) V=s
-
     - name: Assemble Artifact
       id: assemble_artifact
       run: |
