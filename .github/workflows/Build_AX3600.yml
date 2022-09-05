@@ -26,14 +26,18 @@ jobs:
         sudo apt update
         sudo apt-get install -y opam ocaml-nox git zip subversion build-essential flex wget gawk unzip man file zlib1g-dev libssl-dev libncurses5-dev python
         
-    - name: Clone source code
+    - name: Clone source QSDK
       env: 
         REPO_URL: https://github.com/Tony91590/R3600
         REPO_BRANCH: test
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        cp config-ax3600-512M .config
+        
+    - name: Clone .config
+      working-directory: ./openwrt
+      run: |
+          cp config-ax3600-512M .config
         
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -62,16 +66,7 @@ jobs:
       run: |
         rm -rf ./AX3600_Out
         mkdir -p ./AX3600_Out/
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-sysupgrade.bin ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-sysupgrade.bin
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-factory.ubi ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600-squashfs-nand-factory.ubi
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600-initramfs-fit-uImage.itb ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600-initramfs-fit-uImage.itb
-        cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600.manifest ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600.manifest
-        cp -a openwrt/bin/targets/ipq807x/generic/config.buildinfo ./AX3600_Out/config.buildinfo
-        cp -a openwrt/bin/targets/ipq807x/generic/feeds.buildinfo ./AX3600_Out/feeds.buildinfo
-        cp -a openwrt/bin/targets/ipq807x/generic/profiles.json ./AX3600_Out/profiles.json
-        cp -a openwrt/bin/targets/ipq807x/generic/version.buildinfo ./AX3600_Out/version.buildinfo
-        cp -a openwrt/bin/targets/ipq807x/generic/sha256sums ./AX3600_Out/sha256sums
-        
+       
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
       with:
