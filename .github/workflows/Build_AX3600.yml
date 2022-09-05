@@ -46,6 +46,13 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         cp config-ax3600-512M .config
+        make package/symlinks
+        make defconfig
+        make download -j
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+        make -j V=s
+        
         
     - name: Update & Install feeds
       working-directory: ./openwrt
