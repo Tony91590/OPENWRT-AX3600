@@ -40,8 +40,8 @@ jobs:
         
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/Tony91590/openwrtAx
-        REPO_BRANCH: master-5.15-rc6-1
+        REPO_URL: https://github.com/Tony91590/lede
+        REPO_BRANCH: AX3600
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
