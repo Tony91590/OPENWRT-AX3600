@@ -40,8 +40,8 @@ jobs:
         
     - name: Clone source QSDK
       env: 
-        REPO_URL: https://github.com/Tony91590/R3600
-        REPO_BRANCH: Orig
+        REPO_URL: https://github.com/Tony91590/qsdk_cmiot-ax6
+        REPO_BRANCH: main
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
@@ -49,7 +49,7 @@ jobs:
     - name: Clone .config
       working-directory: ./openwrt
       run: |
-          cp config-ax3600-512M .config
+          cp config-ax18-512M .config
         
     - name: Update & Install feeds
       working-directory: ./openwrt
