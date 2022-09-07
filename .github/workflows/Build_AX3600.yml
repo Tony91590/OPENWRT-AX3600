@@ -41,7 +41,7 @@ jobs:
     - name: Clone source QSDK
       env: 
         REPO_URL: https://github.com/Tony91590/R3600
-        REPO_BRANCH: test
+        REPO_BRANCH: Orig
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
