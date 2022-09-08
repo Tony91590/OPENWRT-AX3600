@@ -37,7 +37,17 @@ jobs:
         sudo -E apt-get clean
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
-        
+
+    - name: Compile Automake
+      run: |
+        curl -sLO https://mirrors.tuna.tsinghua.edu.cn/gnu/automake/automake-1.16.3.tar.gz
+        tar -xzf automake-1.16.3.tar.gz
+        cd automake-1.16.3
+        ./configure
+        make
+        sudo make install
+        sudo apt show automake
+       
     - name: Clone source QSDK
       env: 
         REPO_URL: https://github.com/Tony91590/qsdk_cmiot-ax6
