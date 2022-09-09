@@ -56,14 +56,14 @@ jobs:
     - name: Download package
       working-directory: ./QCA
       run: |
-        make download -j
+        make download -j1
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
     - name: Build firmware
       working-directory: ./QCA
       run: |
-        make -j V=s
+        make -j1 V=s
 
     - name: Assemble Artifact
       id: assemble_artifact
