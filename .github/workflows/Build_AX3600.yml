@@ -57,29 +57,29 @@ jobs:
         cd QCA
         
     - name: Clone .config
-      working-directory: ./openwrt
+      working-directory: ./QCA
       run: |
           cp config-ax3600-512M .config
         
     - name: Update & Install feeds
-      working-directory: ./openwrt
+      working-directory: ./QCA
       run: |
           make package/symlinks
  
     - name: Download deconf
-      working-directory: ./openwrt
+      working-directory: ./QCA
       run: |
           make defconfig 
         
     - name: Download package
-      working-directory: ./openwrt
+      working-directory: ./QCA
       run: |
         make download -j
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
     - name: Build firmware
-      working-directory: ./openwrt
+      working-directory: ./QCA
       run: |
         make -j V=s
 
