@@ -31,8 +31,8 @@ jobs:
        
     - name: Clone source QSDK
       env: 
-        REPO_URL: https://github.com/Tony91590/QCA
-        REPO_BRANCH: Master.3
+        REPO_URL: https://github.com/Tony91590/qsdk
+        REPO_BRANCH: master
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH QCA
         cd QCA
