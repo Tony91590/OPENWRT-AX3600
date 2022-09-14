@@ -40,8 +40,8 @@ jobs:
         
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/Tony91590/openwrtAx
-        REPO_BRANCH: master-5.15-rc6-1
+        REPO_URL: https://github.com/Tony91590/Q60
+        REPO_BRANCH: FRANCK
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
@@ -86,9 +86,7 @@ jobs:
         cp -a openwrt/bin/targets/ipq807x/generic/openwrt-ipq807x-generic-xiaomi_ax3600.manifest ./AX3600_Out/openwrt-ipq807x-generic-xiaomi_ax3600.manifest
         cp -a openwrt/bin/targets/ipq807x/generic/config.buildinfo ./AX3600_Out/config.buildinfo
         cp -a openwrt/bin/targets/ipq807x/generic/feeds.buildinfo ./AX3600_Out/feeds.buildinfo
-        cp -a openwrt/bin/targets/ipq807x/generic/profiles.json ./AX3600_Out/profiles.json
         cp -a openwrt/bin/targets/ipq807x/generic/version.buildinfo ./AX3600_Out/version.buildinfo
-        cp -a openwrt/bin/targets/ipq807x/generic/sha256sums ./AX3600_Out/sha256sums
         
     - name: Upload Firmwares
       uses: actions/upload-artifact@main
