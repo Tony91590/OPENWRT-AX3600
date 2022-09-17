@@ -45,6 +45,8 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH QCA
         cd QCA
+        cp -f ../diy-part1.sh ./
+        chmod +x ./diy-part1.sh && ./diy-part1.sh
 
     - name: Clone .config
       working-directory: ./QCA
