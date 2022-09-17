@@ -1,4 +1,4 @@
-name: Build_ax3600
+name: Build_ax3600-qsdk
 
 on: 
   repository_dispatch:
