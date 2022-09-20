@@ -1,4 +1,4 @@
-name: Build_ax3600
+name: Build_ax3600vr45
 
 on: 
   repository_dispatch:
