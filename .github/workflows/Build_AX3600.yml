@@ -54,7 +54,7 @@ jobs:
       working-directory: ./QCA
       run: |
           make defconfig
-          make -j$(nproc) || make
+          make -j1 || make
 
     - name: Download deconf
       working-directory: ./QCA
